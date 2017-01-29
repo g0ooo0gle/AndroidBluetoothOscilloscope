@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LineChart signalchart;
     BluetoothSPP bt;
     Menu menu;
+    boolean connectflag = false;
 
 
     @Override
@@ -41,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         signalchart = (LineChart) content_view.findViewById(R.id.linechart);
 
         bt = new BluetoothSPP(this);
-
-
 
         if(!bt.isBluetoothAvailable()) {
             Toast.makeText(getApplicationContext()
@@ -63,16 +62,19 @@ public class MainActivity extends AppCompatActivity {
                 statusView.setText("Status : Not connect");
                 menu.clear();
                 getMenuInflater().inflate(R.menu.menu_connection, menu);
+                connectflag = false;
             }
 
             public void onDeviceConnectionFailed() {
                 statusView.setText("Status : Connection failed");
+                connectflag = false;
             }
 
             public void onDeviceConnected(String name, String address) {
                 statusView.setText("Status : Connected to " + name);
                 menu.clear();
                 getMenuInflater().inflate(R.menu.menu_disconnection, menu);
+                connectflag = true;
 
             }
         });
@@ -83,20 +85,22 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
 
-                if(!bt.isBluetoothAvailable()) {
-                    Toast.makeText(getApplicationContext()
-                            , "とーすとおしたけどBluetoothうごいてないぞ"
-                            , Toast.LENGTH_SHORT).show();
-                    finish();
+                //fab.hide();
+
+                if(connectflag == true) {
+                    //Toast.makeText(getApplicationContext(), "Bluetoothうごいてる", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, "コネクションしています", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
                 }
+                else {
+                    //Toast.makeText(getApplicationContext(), "とーすとおしたけどBluetoothうごいてないぞ", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, "コネクションしていません", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+                }
+
             }
         });
-
-
-
 
     }
 

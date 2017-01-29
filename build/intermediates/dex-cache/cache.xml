@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="108d54dded15a6205f5f476d92a6e1cb99d9d7c7">
+        sha1="aae42095c5fcd692ea32f09fe641728eef94d4d8">
         <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_0e006bc8778e930b268cffc546656f1f92488c7c/classes.dex" />
     </item>
     <item
@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="f7cab45344dee8c87515d7410a0fcefe41071145">
+        sha1="9f8a930ccc534ceeebd8b9a6c6e1196736f330a9">
         <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6572056af93fcd0c0c9f817d7e348e4c143cafd3/classes.dex" />
     </item>
     <item
