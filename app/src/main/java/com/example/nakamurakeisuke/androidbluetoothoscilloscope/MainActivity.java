@@ -8,8 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.LineChart;
+
+import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView textView , statusView ;
+    LineChart linechart;
+    BluetoothSPP bt;
+    Menu menu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
