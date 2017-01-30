@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     boolean connectFlag = false;
     String statusString;
 
+
     //グラフ用
     ArrayList<Entry> values = new ArrayList<Entry>();
 
@@ -67,16 +68,22 @@ public class MainActivity extends AppCompatActivity {
         //Y軸設定
         YAxis leftAxis = signalChart.getAxisLeft();
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaxValue(5.0f);
+        leftAxis.setAxisMaxValue(6.0f);
         leftAxis.setAxisMinValue(0f);
         leftAxis.setStartAtZero(true);
         leftAxis.setDrawGridLines(true);
+
+        YAxis yAxisRight = signalChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+
+        //Legend l = signalChart.getLegend();
+        //l.setEnabled(false);
+
 
         bt = new BluetoothSPP(this);
 
         //実験的
         //drawChartinit();
-
 
 
         if(!bt.isBluetoothAvailable()) {
@@ -103,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         String[] datas = dataarray[i].split(",");
                         //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
                         float voltage = (Float.valueOf(datas[1])*5)/1024;
-                        textView.setText(datas[0]+ "Time[μs]:" + voltage +"[V]");
+                        textView.setText("Time:" + datas[0]+ "[μs] " + "Voltage"+ voltage +"[V]");
                         //textView.append("count;"+i+"\n");
 
                         if (datas.length < 2){
@@ -365,6 +372,8 @@ public class MainActivity extends AppCompatActivity {
                     set1.setFormLineWidth(1f);
                     set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
                     set1.setFormSize(15.f);
+
+                    set1.setDrawValues(false);
 
 
                     ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();

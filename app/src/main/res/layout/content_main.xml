@@ -23,25 +23,19 @@
         android:layout_alignParentBottom="true" />
 
     <TextView
-        android:text="statusView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No data"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Please settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/statusView"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="107dp"
-        android:layout_marginStart="107dp"
-        android:layout_alignTop="@+id/textView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="debugText"
-        android:id="@+id/textView"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/statusView"
-        android:layout_toEndOf="@+id/statusView"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
