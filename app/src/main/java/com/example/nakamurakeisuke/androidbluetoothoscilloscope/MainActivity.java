@@ -3,11 +3,14 @@ package com.example.nakamurakeisuke.androidbluetoothoscilloscope;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import java.util.ArrayList;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
@@ -23,10 +35,13 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 public class MainActivity extends AppCompatActivity {
 
     TextView textView , statusView;
-    LineChart signalchart;
+    LineChart signalChart;
     BluetoothSPP bt;
     Menu menu;
-    boolean connectflag = false;
+    boolean connectFlag = false;
+
+    //グラフ用
+    ArrayList<Entry> values = new ArrayList<Entry>();
 
 
     @Override
@@ -39,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
         textView = (TextView)content_view.findViewById(R.id.textView);
         statusView = (TextView)content_view.findViewById(R.id.statusView);
-        signalchart = (LineChart) content_view.findViewById(R.id.linechart);
+        signalChart = (LineChart) content_view.findViewById(R.id.linechart);
+        signalChart.setVisibleXRangeMaximum(256);
 
         bt = new BluetoothSPP(this);
+        //drawChartinit();
 
         if(!bt.isBluetoothAvailable()) {
             Toast.makeText(getApplicationContext()
@@ -52,7 +69,33 @@ public class MainActivity extends AppCompatActivity {
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             public void onDataReceived(byte[] data, String message) {
-                textView.append(message + "\n");
+                //textView.append(message + "\n");
+                if (message.contains("e")){
+                    values.clear();
+                    signalChart.getData().notifyDataChanged();
+                }
+                isValueMonitored(message);
+
+                //test
+                if (message.contains(",")){
+                    String[] dataarray = message.split("\n");
+                    for (int i = 0; i < dataarray.length; i++) {
+
+                        String[] datas = dataarray[i].split(",");
+                        //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
+                        float voltage = (Float.valueOf(datas[1])*5)/1024;
+                        textView.setText(datas[0]+ "Time[μs]:" + voltage +"[V]"+"\n");
+                        //textView.append("count;"+i+"\n");
+
+                        if (datas.length < 2){
+                            break;
+                        }
+
+//                        values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
+
+
+                    }
+                }
 
             }
         });
@@ -62,19 +105,19 @@ public class MainActivity extends AppCompatActivity {
                 statusView.setText("Status : Not connect");
                 menu.clear();
                 getMenuInflater().inflate(R.menu.menu_connection, menu);
-                connectflag = false;
+                connectFlag = false;
             }
 
             public void onDeviceConnectionFailed() {
                 statusView.setText("Status : Connection failed");
-                connectflag = false;
+                connectFlag = false;
             }
 
             public void onDeviceConnected(String name, String address) {
                 statusView.setText("Status : Connected to " + name);
                 menu.clear();
                 getMenuInflater().inflate(R.menu.menu_disconnection, menu);
-                connectflag = true;
+                connectFlag = true;
 
             }
         });
@@ -88,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //fab.hide();
 
-                if(connectflag == true) {
+                if(connectFlag == true) {
                     //Toast.makeText(getApplicationContext(), "Bluetoothうごいてる", Toast.LENGTH_SHORT).show();
                     Snackbar.make(view, "コネクションしています", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
@@ -196,4 +239,141 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public  void drawChartinit(){
+        // enable touch gestures
+        signalChart.setTouchEnabled(true);
+
+        // enable scaling and dragging
+        signalChart.setDragEnabled(true);
+        signalChart.setScaleEnabled(true);
+        signalChart.setDrawGridBackground(false);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        signalChart.setPinchZoom(true);
+
+        // set an alternative background color
+        signalChart.setBackgroundColor(Color.LTGRAY);
+
+        LineData data = new LineData();
+        data.setValueTextColor(Color.BLACK);
+
+        //  ラインの凡例の設定
+        Legend l = signalChart.getLegend();
+        l.setForm(Legend.LegendForm.LINE);
+        l.setTextColor(Color.BLACK);
+
+        XAxis xl = signalChart.getXAxis();
+        xl.setTextColor(Color.BLACK);
+        //xl.setLabelsToSkip(9);
+
+        YAxis leftAxis = signalChart.getAxisLeft();
+        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setAxisMaxValue(3.0f);
+        leftAxis.setAxisMinValue(-3.0f);
+        leftAxis.setStartAtZero(false);
+        leftAxis.setDrawGridLines(true);
+
+        YAxis rightAxis = signalChart.getAxisRight();
+        rightAxis.setEnabled(false);
+
+    }
+
+    public void isValueMonitored(String data) {
+        int counter =0;
+        try {
+
+                String[] dataarray = data.split("\n");
+
+                for (int i = 0; i < dataarray.length; i++) {
+                    String[] datas = dataarray[i].split(",");
+
+                    if (datas.length < 2){
+                        break;
+                    }
+                    Log.d("Recived",datas[0]+","+datas[1]);
+
+                    //分けた配列0番目の処理
+
+                    textView.setText(datas[1]);
+                    values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
+
+                    Log.d("debugデータ値のリスト要素数", String.valueOf(values.size()));
+
+                    //画面描画時に波形が動き始める値の調整用
+                    //先頭の値削除
+                    if (values.size() > 100){
+                        signalChart.getLineData().getDataSets().get(0).removeFirst();
+                    }
+
+                    if (Float.valueOf(datas[0]) == 0){
+                        signalChart.invalidate(); // refresh
+                    }
+
+
+                    //chart初期化
+                    //touch gesture設定
+                    signalChart.setTouchEnabled(true);
+                    // スケーリング&ドラッグ設定
+                    signalChart.setDragEnabled(true);
+                    signalChart.setScaleEnabled(true);
+                    signalChart.setDrawBorders(true);
+                    //背景
+                    signalChart.setDrawGridBackground(false);
+
+                    XAxis xAxis = signalChart.getXAxis();
+                    xAxis.setTextColor(Color.BLACK);
+
+                    LineDataSet set1 = new LineDataSet(values,"波形");
+
+                    //点線設定
+                    //set1.enableDashedLine(10f, 5f, 0f);
+                    //set1.enableDashedHighlightLine(10f, 5f, 0f);
+
+                    set1.setColor(Color.GREEN);
+                    set1.setDrawValues(false);          //値ラベル表示しない
+                    set1.setLineWidth(1f);
+
+                    //プロット点設定
+                    set1.setCircleRadius(3f);
+                    set1.setDrawCircleHole(false);
+                    set1.setCircleColor(Color.GREEN);
+
+                    set1.setValueTextSize(9f);
+                    set1.setDrawFilled(false);
+                    set1.setFormLineWidth(1f);
+                    set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+                    set1.setFormSize(15.f);
+
+
+                    ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+
+                    dataSets.add(set1);
+
+                    dataSets.get(0).getXMax();
+
+                    LineData lineData = new LineData(dataSets);
+
+                    signalChart.setData(lineData);
+
+
+                    signalChart.getData().notifyDataChanged();
+                    lineData.notifyDataChanged();
+
+                    //最新データまで移動
+                    signalChart.moveViewToX(lineData.getEntryCount());
+
+
+                    counter++;
+
+                }
+
+        }catch (NumberFormatException e){
+
+            Toast.makeText(MainActivity.this,"format error"+ data,Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
 }
