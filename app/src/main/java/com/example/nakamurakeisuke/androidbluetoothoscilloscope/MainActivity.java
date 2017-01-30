@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     BluetoothSPP bt;
     Menu menu;
     boolean connectFlag = false;
+    String statusString;
 
     //グラフ用
     ArrayList<Entry> values = new ArrayList<Entry>();
@@ -57,8 +58,26 @@ public class MainActivity extends AppCompatActivity {
         signalChart = (LineChart) content_view.findViewById(R.id.linechart);
         signalChart.setVisibleXRangeMaximum(256);
 
+        //X軸設定
+        XAxis rightAxis = signalChart.getXAxis();
+        rightAxis.setTextColor(Color.BLACK);
+        rightAxis.setAxisMaxValue(1500f);
+        rightAxis.setAxisMinimum(0f);
+
+        //Y軸設定
+        YAxis leftAxis = signalChart.getAxisLeft();
+        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setAxisMaxValue(5.0f);
+        leftAxis.setAxisMinValue(0f);
+        leftAxis.setStartAtZero(true);
+        leftAxis.setDrawGridLines(true);
+
         bt = new BluetoothSPP(this);
+
+        //実験的
         //drawChartinit();
+
+
 
         if(!bt.isBluetoothAvailable()) {
             Toast.makeText(getApplicationContext()
@@ -84,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                         String[] datas = dataarray[i].split(",");
                         //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
                         float voltage = (Float.valueOf(datas[1])*5)/1024;
-                        textView.setText(datas[0]+ "Time[μs]:" + voltage +"[V]"+"\n");
+                        textView.setText(datas[0]+ "Time[μs]:" + voltage +"[V]");
                         //textView.append("count;"+i+"\n");
 
                         if (datas.length < 2){
@@ -103,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
             public void onDeviceDisconnected() {
                 statusView.setText("Status : Not connect");
+                statusString = "Status : 接続されていません。";
                 menu.clear();
                 getMenuInflater().inflate(R.menu.menu_connection, menu);
                 connectFlag = false;
@@ -110,11 +130,13 @@ public class MainActivity extends AppCompatActivity {
 
             public void onDeviceConnectionFailed() {
                 statusView.setText("Status : Connection failed");
+                statusString = "Status : 接続失敗";
                 connectFlag = false;
             }
 
             public void onDeviceConnected(String name, String address) {
                 statusView.setText("Status : Connected to " + name);
+                statusString = "Status : "+ name + "に接続されています。" ;
                 menu.clear();
                 getMenuInflater().inflate(R.menu.menu_disconnection, menu);
                 connectFlag = true;
@@ -125,20 +147,20 @@ public class MainActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //fab.hide();
 
                 if(connectFlag == true) {
                     //Toast.makeText(getApplicationContext(), "Bluetoothうごいてる", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(view, "コネクションしています", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(view, statusString , Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }
                 else {
                     //Toast.makeText(getApplicationContext(), "とーすとおしたけどBluetoothうごいてないぞ", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(view, "コネクションしていません", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(view, statusString, Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }
 
@@ -247,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
         // enable scaling and dragging
         signalChart.setDragEnabled(true);
         signalChart.setScaleEnabled(true);
-        signalChart.setDrawGridBackground(false);
+        signalChart.setDrawGridBackground(true);
 
         // if disabled, scaling can be done on x- and y-axis separately
         signalChart.setPinchZoom(true);
@@ -262,20 +284,17 @@ public class MainActivity extends AppCompatActivity {
         Legend l = signalChart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
         l.setTextColor(Color.BLACK);
-
-        XAxis xl = signalChart.getXAxis();
-        xl.setTextColor(Color.BLACK);
-        //xl.setLabelsToSkip(9);
-
+        XAxis rightAxis = signalChart.getXAxis();
+        rightAxis.setTextColor(Color.BLACK);
+        rightAxis.setAxisMaxValue(1500f);
+        rightAxis.setAxisMinimum(0f);
+        //y軸設定
         YAxis leftAxis = signalChart.getAxisLeft();
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaxValue(3.0f);
-        leftAxis.setAxisMinValue(-3.0f);
-        leftAxis.setStartAtZero(false);
+        leftAxis.setAxisMaxValue(5.0f);
+        leftAxis.setAxisMinValue(0f);
+        leftAxis.setStartAtZero(true);
         leftAxis.setDrawGridLines(true);
-
-        YAxis rightAxis = signalChart.getAxisRight();
-        rightAxis.setEnabled(false);
 
     }
 
@@ -295,20 +314,22 @@ public class MainActivity extends AppCompatActivity {
 
                     //分けた配列0番目の処理
 
-                    textView.setText(datas[1]);
-                    values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
+                    //textView.setText(datas[1]);
+                    float voltage = (Float.valueOf(datas[1])*5)/1024;
+                    //values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
+                    values.add(new Entry(Float.valueOf(datas[0]),voltage));//データ値リストに追加(x,y)
 
                     Log.d("debugデータ値のリスト要素数", String.valueOf(values.size()));
 
                     //画面描画時に波形が動き始める値の調整用
                     //先頭の値削除
-                    if (values.size() > 100){
-                        signalChart.getLineData().getDataSets().get(0).removeFirst();
-                    }
+                    //if (values.size() > 100){
+                    //    signalChart.getLineData().getDataSets().get(0).removeFirst();
+                    //}
 
-                    if (Float.valueOf(datas[0]) == 0){
-                        signalChart.invalidate(); // refresh
-                    }
+                    //if (Float.valueOf(datas[0]) == 0){
+                    //    signalChart.invalidate(); // refresh
+                    //}
 
 
                     //chart初期化
@@ -321,8 +342,8 @@ public class MainActivity extends AppCompatActivity {
                     //背景
                     signalChart.setDrawGridBackground(false);
 
-                    XAxis xAxis = signalChart.getXAxis();
-                    xAxis.setTextColor(Color.BLACK);
+                    //XAxis xAxis = signalChart.getXAxis();
+                    //xAxis.setTextColor(Color.BLACK);
 
                     LineDataSet set1 = new LineDataSet(values,"波形");
 
@@ -362,7 +383,6 @@ public class MainActivity extends AppCompatActivity {
 
                     //最新データまで移動
                     signalChart.moveViewToX(lineData.getEntryCount());
-
 
                     counter++;
 

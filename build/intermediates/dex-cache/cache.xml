@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="39b209f6e7fc7974b76e6055e4a36cf2cc21151d">
+        sha1="88bf433c6e26a399d75afa73566a184fe0d5b800">
         <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_0e006bc8778e930b268cffc546656f1f92488c7c/classes.dex" />
     </item>
     <item
@@ -21,12 +21,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/nakamurakeisuke/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.0.0/ff93baa2e2e6ca507fc6ec731f61751dd0d865e7/MPAndroidChart-v3.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ff93baa2e2e6ca507fc6ec731f61751dd0d865e7">
+        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/MPAndroidChart-v3.0.0_3b753e4fa0199a506f4eeec047d096fd18faf831/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.akexorcist/bluetoothspp/1.0.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="a77138ac5211331e9579024c12bedabe3c835260">
         <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.akexorcist-bluetoothspp-1.0.0_f48503ff8eeb97098a6c0ca1c36377e750194b59/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="efa9be0437369d155e95dcb649923ca13381d30a">
+        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6572056af93fcd0c0c9f817d7e348e4c143cafd3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.0_b84f2283390d33ce2c9dc5100a0865f5f5f3d988/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -66,66 +93,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_a5adfe3d4712777d000fb903939da4807d05572d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
-        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.0_df0aa22d92f6fb4bc3b071ae8aece38ee2e2a744/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
-        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.0_19d75214a9b45121b626a83f05bc92d6a087bd0a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nakamurakeisuke/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.0.0/ff93baa2e2e6ca507fc6ec731f61751dd0d865e7/MPAndroidChart-v3.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ff93baa2e2e6ca507fc6ec731f61751dd0d865e7">
-        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/MPAndroidChart-v3.0.0_3b753e4fa0199a506f4eeec047d096fd18faf831/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7dc2f8bdd8e1634a47bc57251cad0435f99ffcbf">
-        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6572056af93fcd0c0c9f817d7e348e4c143cafd3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
-        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.0_b84f2283390d33ce2c9dc5100a0865f5f5f3d988/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/nakamurakeisuke/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
         <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.0_f8377ea4114231ce3dff5e0df0bec51dbbd6427c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_a5adfe3d4712777d000fb903939da4807d05572d/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -147,12 +129,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
+        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.0_df0aa22d92f6fb4bc3b071ae8aece38ee2e2a744/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="aee64634871d88a419d59eb743c1258a60f19700">
         <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.0_c85020028131bc056172bbf63596150097aceb4c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
+        <dex dex="/Users/nakamurakeisuke/AndroidStudioProjects/AndroidBluetoothOscilloscope/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.0_19d75214a9b45121b626a83f05bc92d6a087bd0a/classes.dex" />
     </item>
 
 </items>

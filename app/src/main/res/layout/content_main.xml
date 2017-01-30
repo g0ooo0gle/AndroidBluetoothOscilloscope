@@ -13,25 +13,14 @@
     tools:context="com.example.nakamurakeisuke.androidbluetoothoscilloscope.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="debugText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
-
     <view
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         class="com.github.mikephil.charting.charts.LineChart"
         android:id="@+id/linechart"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:text="statusView"
@@ -39,5 +28,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/statusView"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="107dp"
+        android:layout_marginStart="107dp"
+        android:layout_alignTop="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="debugText"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/statusView"
+        android:layout_toEndOf="@+id/statusView"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp" />
 </RelativeLayout>
