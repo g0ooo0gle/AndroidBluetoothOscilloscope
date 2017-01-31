@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Entry> values = new ArrayList<Entry>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,31 +59,12 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView)content_view.findViewById(R.id.textView);
         statusView = (TextView)content_view.findViewById(R.id.statusView);
         signalChart = (LineChart) content_view.findViewById(R.id.linechart);
-        signalChart.setVisibleXRangeMaximum(256);
 
-        //X軸設定
-        XAxis rightAxis = signalChart.getXAxis();
-        rightAxis.setTextColor(Color.BLACK);
-        rightAxis.setAxisMaxValue(1500f);
-        rightAxis.setAxisMinimum(0f);
-
-        //Y軸設定
-        YAxis leftAxis = signalChart.getAxisLeft();
-        leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaxValue(6.0f);
-        leftAxis.setAxisMinValue(0f);
-        leftAxis.setStartAtZero(true);
-        leftAxis.setDrawGridLines(true);
-
-        YAxis yAxisRight = signalChart.getAxisRight();
-        yAxisRight.setEnabled(false);
+        //チャート初期化
+        drawChartinit();
 
 
         bt = new BluetoothSPP(this);
-
-        //実験的
-        //drawChartinit();
-
 
         if(!bt.isBluetoothAvailable()) {
             Toast.makeText(getApplicationContext()
@@ -99,34 +82,35 @@ public class MainActivity extends AppCompatActivity {
                 }
                 isValueMonitored(message);
 
-                try{
-                    //test
-                    if (message.contains(",")){
-                        String[] dataarray = message.split("\n");
-                        for (int i = 0; i < dataarray.length; i++) {
-
-                            String[] datas = dataarray[i].split(",");
-                            //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
-                            float voltage = (Float.valueOf(datas[1])*5)/1024;
-                            textView.setText("Time:" + datas[0]+ "[μs] " + "Voltage"+ voltage +"[V]");
-                            //textView.append("count;"+i+"\n");
-
-                            if (datas.length < 2){
-                                break;
-                            }
-
-//                        values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
-
-
-                        }
-                    }
-
-
-                }catch (NumberFormatException e){
-
-                //Toast.makeText(MainActivity.this,"format error"+ data,Toast.LENGTH_SHORT).show();
-
-            }
+//                //テスト表示部
+//                try{
+//
+//                    if (message.contains(",")){
+//                        String[] dataarray = message.split("\n");
+//                        for (int i = 0; i < dataarray.length; i++) {
+//
+//                            String[] datas = dataarray[i].split(",");
+//                            //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
+//                            float voltage = (Float.valueOf(datas[1])*5)/1024;
+//                            textView.setText("Time:" + datas[0]+ "[μs] " + "Voltage"+ voltage +"[V]");
+//                            //textView.append("count;"+i+"\n");
+//
+//                            if (datas.length < 2){
+//                                break;
+//                            }
+//
+////                        values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
+//
+//
+//                        }
+//                    }
+//
+//
+//                }catch (NumberFormatException e){
+//
+//                //Toast.makeText(MainActivity.this,"format error"+ data,Toast.LENGTH_SHORT).show();
+//
+//            }
 
             }
         });
@@ -301,38 +285,26 @@ public boolean onOptionsItemSelected(MenuItem item) {
     }
 
     public  void drawChartinit(){
-        // enable touch gestures
-        signalChart.setTouchEnabled(true);
+        signalChart.setVisibleXRangeMaximum(256);
 
-        // enable scaling and dragging
-        signalChart.setDragEnabled(true);
-        signalChart.setScaleEnabled(true);
-        signalChart.setDrawGridBackground(true);
 
-        // if disabled, scaling can be done on x- and y-axis separately
-        signalChart.setPinchZoom(true);
-
-        // set an alternative background color
-        signalChart.setBackgroundColor(Color.LTGRAY);
-
-        LineData data = new LineData();
-        data.setValueTextColor(Color.BLACK);
-
-        //  ラインの凡例の設定
-        Legend l = signalChart.getLegend();
-        l.setForm(Legend.LegendForm.LINE);
-        l.setTextColor(Color.BLACK);
+        //X軸設定
         XAxis rightAxis = signalChart.getXAxis();
         rightAxis.setTextColor(Color.BLACK);
         rightAxis.setAxisMaxValue(1500f);
         rightAxis.setAxisMinimum(0f);
-        //y軸設定
+
+        //Y軸設定
         YAxis leftAxis = signalChart.getAxisLeft();
         leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisMaxValue(5.0f);
+        leftAxis.setAxisMaxValue(6.0f);
         leftAxis.setAxisMinValue(0f);
         leftAxis.setStartAtZero(true);
         leftAxis.setDrawGridLines(true);
+
+        YAxis yAxisRight = signalChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+
 
     }
 
@@ -358,7 +330,11 @@ public boolean onOptionsItemSelected(MenuItem item) {
                     //values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
                     values.add(new Entry(Float.valueOf(datas[0]),voltage));//データ値リストに追加(x,y)
 
-                    Log.d("debugデータ値のリスト要素数", String.valueOf(values.size()));
+                    //リアルタイム表示用
+                    textView.setText("Time:" + datas[0]+ "[μs] " + "Voltage"+ voltage +"[V]");
+
+
+                    //Log.d("debugデータ値のリスト要素数", String.valueOf(values.size()));
 
                     //画面描画時に波形が動き始める値の調整用
                     //先頭の値削除
@@ -392,10 +368,10 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
                     set1.setColor(Color.GREEN);
                     set1.setDrawValues(false);          //値ラベル表示しない
-                    set1.setLineWidth(1f);
+                    set1.setLineWidth(2f);
 
                     //プロット点設定
-                    set1.setCircleRadius(3f);
+                    set1.setCircleRadius(1f);
                     set1.setDrawCircleHole(false);
                     set1.setCircleColor(Color.GREEN);
 
@@ -418,14 +394,11 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
                     signalChart.setData(lineData);
 
-
                     signalChart.getData().notifyDataChanged();
                     lineData.notifyDataChanged();
 
                     //最新データまで移動
                     signalChart.moveViewToX(lineData.getEntryCount());
-
-
 
                     counter++;
 
@@ -433,7 +406,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
         }catch (NumberFormatException e){
 
-            Toast.makeText(MainActivity.this,"format error"+ data,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,"format error"+ data,Toast.LENGTH_SHORT).show();
+            statusView.setText("[Warn!]Format error:" + data);
+
 
         }
 
