@@ -180,42 +180,68 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         this.menu = menu;
+        //getMenuInflater().inflate(R.menu.menu_connection, menu);
         getMenuInflater().inflate(R.menu.menu_connection, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        if(id == R.id.menu_android_connect) {
+//            bt.setDeviceTarget(BluetoothState.DEVICE_ANDROID);
+//			/*
+//			if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
+//    			bt.disconnect();*/
+//            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+//            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+//        } else if(id == R.id.menu_device_connect) {
+//            bt.setDeviceTarget(BluetoothState.DEVICE_OTHER);
+//			/*
+//			if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
+//    			bt.disconnect();*/
+//            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+//            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+//        } else if(id == R.id.menu_disconnect) {
+//            if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
+//                bt.disconnect();
+//        }
+//        //noinspection SimplifiableIfStatement
+//        //if (id == R.id.action_settings) {
+//        //    return true;
+//        //}
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
 
-        if(id == R.id.menu_android_connect) {
-            bt.setDeviceTarget(BluetoothState.DEVICE_ANDROID);
+    if(id == R.id.menu_device_connect) {
+        bt.setDeviceTarget(BluetoothState.DEVICE_OTHER);
 			/*
 			if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
     			bt.disconnect();*/
-            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
-            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
-        } else if(id == R.id.menu_device_connect) {
-            bt.setDeviceTarget(BluetoothState.DEVICE_OTHER);
-			/*
-			if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
-    			bt.disconnect();*/
-            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
-            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
-        } else if(id == R.id.menu_disconnect) {
-            if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
-                bt.disconnect();
-        }
-        //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_settings) {
-        //    return true;
-        //}
-
-        return super.onOptionsItemSelected(item);
+        Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+        startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+    } else if(id == R.id.menu_disconnect) {
+        if(bt.getServiceState() == BluetoothState.STATE_CONNECTED)
+            bt.disconnect();
     }
+    //noinspection SimplifiableIfStatement
+    //if (id == R.id.action_settings) {
+    //    return true;
+    //}
+
+    return super.onOptionsItemSelected(item);
+}
 
     public void onDestroy() {
         super.onDestroy();
@@ -392,6 +418,8 @@ public class MainActivity extends AppCompatActivity {
 
                     //最新データまで移動
                     signalChart.moveViewToX(lineData.getEntryCount());
+
+
 
                     counter++;
 
