@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
         YAxis yAxisRight = signalChart.getAxisRight();
         yAxisRight.setEnabled(false);
 
-        //Legend l = signalChart.getLegend();
-        //l.setEnabled(false);
-
 
         bt = new BluetoothSPP(this);
 
@@ -102,26 +99,34 @@ public class MainActivity extends AppCompatActivity {
                 }
                 isValueMonitored(message);
 
-                //test
-                if (message.contains(",")){
-                    String[] dataarray = message.split("\n");
-                    for (int i = 0; i < dataarray.length; i++) {
+                try{
+                    //test
+                    if (message.contains(",")){
+                        String[] dataarray = message.split("\n");
+                        for (int i = 0; i < dataarray.length; i++) {
 
-                        String[] datas = dataarray[i].split(",");
-                        //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
-                        float voltage = (Float.valueOf(datas[1])*5)/1024;
-                        textView.setText("Time:" + datas[0]+ "[μs] " + "Voltage"+ voltage +"[V]");
-                        //textView.append("count;"+i+"\n");
+                            String[] datas = dataarray[i].split(",");
+                            //textView.append("data;"+ datas[i]+"data2;"+ datas[1]+"\n");
+                            float voltage = (Float.valueOf(datas[1])*5)/1024;
+                            textView.setText("Time:" + datas[0]+ "[μs] " + "Voltage"+ voltage +"[V]");
+                            //textView.append("count;"+i+"\n");
 
-                        if (datas.length < 2){
-                            break;
-                        }
+                            if (datas.length < 2){
+                                break;
+                            }
 
 //                        values.add(new Entry(Float.valueOf(datas[0]),Float.valueOf(datas[1])));//データ値リストに追加(x,y)
 
 
+                        }
                     }
-                }
+
+
+                }catch (NumberFormatException e){
+
+                //Toast.makeText(MainActivity.this,"format error"+ data,Toast.LENGTH_SHORT).show();
+
+            }
 
             }
         });
@@ -343,7 +348,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
                     if (datas.length < 2){
                         break;
                     }
-                    Log.d("Recived",datas[0]+","+datas[1]);
+                    //ログ出力
+                    //Log.d("Recived",datas[0]+","+datas[1]);
 
                     //分けた配列0番目の処理
 
